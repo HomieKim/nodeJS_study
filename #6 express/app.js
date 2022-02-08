@@ -6,6 +6,10 @@ const dotenv = require('dotenv');
 const path = require('path');
 
 dotenv.config();
+
+const indexRouter = require('./routes')
+const userRouter = require('./routes/user')
+
 const app = express();
 app.set('port', process.env.PORT || 3000);
 
@@ -27,6 +31,7 @@ app.use(session({
 
 const multer = require('multer');
 const fs = require('fs');
+const { application } = require('express');
 
 try {
   fs.readdirSync('uploads');
@@ -53,6 +58,9 @@ app.post('/upload', upload.fields([{ name: 'image1' }, { name: 'image2' }]), (re
   console.log(req.file);
   res.send('ok');
 });
+
+app.use('/', indexRouter);
+app.use('/user', userRouter);
 
 app.get('/', (req, res, next) => {
   console.log('GET / 요청에서만 실행됩니다.');
