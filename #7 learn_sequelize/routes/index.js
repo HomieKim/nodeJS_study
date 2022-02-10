@@ -1,12 +1,18 @@
 const express = require('express');
 const User = require('../models/user');
+const Comment = require('../models/comment');
 
 const router = express.Router();
 
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll();
-    res.render('sequelize', { users });
+    const comments = await Comment.findAll({
+        include: {
+          model: User,
+        },
+      });
+    res.render('sequelize', { users , comments });
   } catch (err) {
     console.error(err);
     next(err);

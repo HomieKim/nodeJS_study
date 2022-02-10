@@ -63,7 +63,21 @@
         <th>삭제</th>
       </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+        {% for com in comments %}
+        <tr>
+          <td>{{com.id}}</td>
+          <td>{{com.User.name}}</td>
+          <td>{{com.comment}}</td>
+          <td>
+              <button>수정</button>
+          </td>
+          <td>
+            <button>삭제</button>
+        </td>
+        </tr>
+        {% endfor %}
+      </tbody>
     </table>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="/sequelize.js"></script>
